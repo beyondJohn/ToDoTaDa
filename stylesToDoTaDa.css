@@ -1,0 +1,395 @@
+:root {
+    --primary-color: #3A86FF; /* A vibrant blue */
+    --secondary-color: #6c757d; /* Muted gray for secondary text/elements */
+    --accent-color: #FFBE0B; /* Bright yellow for accents and highlights */
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --light-color: #f8f9fa; /* Off-white for backgrounds */
+    --dark-color: #343a40; /* Dark gray for text */
+    --border-color: #dee2e6;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --glow-shadow: 0 0 15px rgba(var(--accent-color-rgb), 0.7); /* For active items, using RGB for opacity */
+    --accent-color-rgb: 255, 190, 11; /* RGB version of accent color for box-shadow opacity */
+    --border-radius: 12px; /* Slightly larger border radius for a softer look */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+}
+
+body {
+    background-color: #f0f4f8; /* Lighter, more modern background */
+    color: var(--dark-color);
+    line-height: 1.6;
+    padding: 0;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.app-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+h1 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    font-weight: 700;
+    margin: 0;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+#addCategoryBtn {
+    background-image: linear-gradient(45deg, var(--accent-color), #ffd24d); /* Brighter yellow for gradient */
+    color: var(--dark-color); /* Dark gray text for contrast on yellow */
+    padding: 12px 20px;
+    border: none;
+    border-radius: 16px; /* Larger radius */
+    cursor: pointer;
+    font-size: 1.1rem; /* Slightly larger font */
+    font-weight: 600; /* Bolder */
+    transition: background-position 0.4s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background-size: 200% auto; /* For gradient animation */
+    display: inline-flex; /* Align icon and text nicely */
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+}
+
+#addCategoryBtn:hover,
+#addCategoryBtn:focus {
+    background-position: right center; /* Change gradient direction on hover */
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    outline: none; /* Remove default focus outline if custom styles are sufficient */
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2a70e0;
+}
+
+.btn-cancel {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-cancel:hover {
+    background-color: #5a6268;
+}
+
+.categories-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.category {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.category.dragging {
+    opacity: 0.6;
+    transform: scale(0.98);
+    box-shadow: var(--glow-shadow);
+}
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: move;
+}
+
+.category-title {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.category-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.category-actions button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.1rem;
+    opacity: 0.85;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.category-actions button:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.tasks-list {
+    padding: 15px;
+    min-height: 60px;
+    background-color: white;
+}
+
+.task {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: var(--light-color);
+    border-radius: var(--border-radius);
+    cursor: move;
+    transition: all 0.2s ease;
+    border: 1px solid var(--border-color);
+}
+
+.task:hover {
+    background-color: #eef2f7;
+    transform: translateX(4px);
+    border-left: 4px solid var(--accent-color);
+}
+
+.task.dragging {
+    opacity: 0.6;
+    transform: scale(0.98) translateX(0);
+    box-shadow: var(--glow-shadow);
+    border-left: 4px solid var(--accent-color);
+}
+
+.task-checkbox {
+    margin-right: 12px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--primary-color);
+}
+
+.task-text {
+    flex-grow: 1;
+    margin: 0;
+    word-break: break-word;
+}
+
+.task.completed .task-text {
+    text-decoration: line-through;
+    color: var(--secondary-color);
+    opacity: 0.7;
+}
+
+.task-actions {
+    display: flex;
+    gap: 10px;
+    margin-left: 10px;
+}
+
+.task-actions button {
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s, color 0.2s, transform 0.2s;
+}
+
+.task-actions button:hover {
+    opacity: 1;
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.add-task-btn {
+    width: 100%;
+    padding: 12px;
+    background: none;
+    border: 2px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--secondary-color);
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.add-task-btn:hover {
+    background-color: #f0f8ff; /* Light accent on hover */
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    animation: modalOpen 0.3s ease-out;
+}
+
+@keyframes modalOpen {
+    from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--dark-color);
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.modal input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.modal input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb, 58, 134, 255), 0.3);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Drag and Drop Styles */
+.drag-over {
+    background-color: #e9f3ff; /* Light blue for drop target indication */
+    border: 2px dashed var(--primary-color);
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .app-container {
+        max-width: 900px; /* Increased max-width for larger screens */
+        padding: 30px;
+    }
+    
+    .categories-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 25px; /* Increased gap */
+    }
+    
+    .category {
+        flex: 1 1 calc(50% - 25px); /* Two columns on larger screens */
+        max-width: calc(50% - 12.5px); /* Ensure gap is respected */
+        margin: 0;
+    }
+}
+
+@media (min-width: 1200px) {
+    .category {
+        flex: 1 1 calc(33.333% - 25px); /* Three columns on very large screens */
+        max-width: calc(33.333% - 16.67px);
+    }
+}
+
+/* Animation for adding/removing items */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.task {
+    animation: fadeIn 0.35s ease-out;
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--secondary-color);
+    background-color: var(--light-color);
+    border-radius: var(--border-radius);
+    border: 1px dashed var(--border-color);
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.4;
+    color: var(--primary-color);
+}
+
+/* Styles for the cloned element during touch drag */
+.dragging-clone {
+    opacity: 0.8;
+    background-color: var(--light-color);
+    border: 1px dashed var(--primary-color);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* More prominent shadow for clone */
+    transform: scale(1.02); /* Slightly larger to feel lifted */
+    pointer-events: none; /* Ensure it doesn't interfere with underlying element detection */
+}
+
+.empty-state p {
+    font-size: 1.1rem;
+}

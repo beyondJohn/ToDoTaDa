@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDoTaDa Mobile Todo App</title>
+    <link rel="stylesheet" href="stylesToDoTaDa.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Share Icon Styles */
+        .share-icon-container {
+            display: flex !important; /* Ensure it's displayed */
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 9999 !important; /* Significantly higher z-index */
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease;
+        }
+        .share-icon-container:hover {
+            background-color: #0056b3;
+        }
+        .share-icon-container i {
+            font-size: 24px;
+        }
+
+        /* QR Code Modal Styles */
+        .qr-modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1001; /* Above share icon */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6); /* Dim background */
+            /* Flexbox for centering */
+            display: none; /* Will be overridden by JS to 'flex' when shown */
+            align-items: center;
+            justify-content: center;
+        }
+        .qr-modal-content {
+            background-color: #fefefe;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 300px; /* Max width for the QR code image */
+            border-radius: 10px;
+            position: relative;
+            text-align: center;
+            /* Remove margin: 5% auto; as flex handles centering */
+        }
+        .qr-modal-content img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .qr-close-btn {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .qr-close-btn:hover,
+        .qr-close-btn:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>ToDoTaDa</h1>
+            <button id="addCategoryBtn" class="btn-add" aria-label="Add Category">
+                <i class="fas fa-wand-magic-sparkles"></i>Category
+            </button>
+        </header>
+        
+        <main id="categoriesContainer" class="categories-container">
+            <!-- Categories will be added here dynamically -->
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="categoryModal" class="modal">
+        <div class="modal-content">
+            <h3>Add New Category</h3>
+            <input type="text" id="categoryName" placeholder="Category name" required>
+            <div class="modal-actions">
+                <button id="cancelCategory" class="btn btn-cancel">Cancel</button>
+                <button id="saveCategory" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <h3>Add New Task</h3>
+            <input type="text" id="taskName" placeholder="Task name" required>
+            <div class="modal-actions">
+                <button id="cancelTask" class="btn btn-cancel">Cancel</button>
+                <button id="saveTask" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="appToDoTaDa.js"></script>
+
+    <!-- Share Icon -->
+    <div id="shareAppIcon" class="share-icon-container" aria-label="Share App">
+        <i class="fas fa-share-alt"></i>
+    </div>
+
+    <!-- QR Code Modal -->
+    <div id="qrCodeModal" class="modal qr-modal"> <!-- Added qr-modal class for specific styling -->
+        <div class="qr-modal-content">
+            <span id="closeQrModal" class="qr-close-btn">&times;</span>
+            <img src="QRCode.jpg" alt="App QR Code">
+        </div>
+    </div>
+</body>
+</html>
